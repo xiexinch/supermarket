@@ -14,20 +14,22 @@ public class Goods {
     private Date production_date;  //出厂日期
 	private String shelf_life;  //保质期
 	private String factory;   //出厂厂商
-	private Connection conn=null; //创建数据库连接对象
+	private static Connection conn=null; //创建数据库连接对象
 	
 	//创建数据库连接
 	
-	private Connection getConn(){
+	private static Connection getConn(){
     	try{
     		Class.forName("com.mysql.jdbc.Driver");
     		conn = DriverManager.getConnection(
-     				"jdbc:mysql://127.0.0.1:3306/supermarkt", "root", "wuhahaha");
+     				"jdbc:mysql://127.0.0.1:3306/supermarkt?useUnicode=true&characterEncoding=utf-8&useSSL=false", "root", "123");
     	}catch(Exception e){
     		e.printStackTrace();
     	}
     	return conn;
     }
+	
+	
 	
 	//get()以及set()方法
 	
