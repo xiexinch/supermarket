@@ -1,0 +1,23 @@
+#container{
+    width: 600px;
+    height: 450px;
+    background-image: url(img/bback.jpg);
+    background-repeat: no-repeat;
+    margin: 0 auto;
+}
+#login{
+    width:60px;
+    margin: 10px 150px 10px 350px;
+}
+#white{
+    width: 300px;
+    height: 400px;
+    margin:0 50px;
+    background-color: #ffffff;
+    border: 1px solid black;
+    filter:alpha(opacity=30);
+    opacity:0.3;
+}
+#frame{
+    margin: 20px;
+}
