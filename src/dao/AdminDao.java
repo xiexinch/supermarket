@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,8 +12,21 @@ import db.DBUtil;
 
 public class AdminDao {
 	
-	public void addAdmin() {
+	public void addAdmin(Administrator admin) throws SQLException {
 		Connection conn = DBUtil.getConnection();
+		String sql = "" + 
+				" insert into administrators" + 
+				" (id,user,password,sex,phone,adress)" + 
+				" values(" + 
+				" ?,?,?,?,?,?)";
+		PreparedStatement ptmt = conn.prepareStatement(sql);
+		ptmt.setInt(1, admin.getNetId());
+		ptmt.setString(2, admin.getName());
+		ptmt.setString(3, admin.getMypassword());
+		ptmt.setString(4, admin.getSex());
+		ptmt.setString(5, admin.getPhone());
+		ptmt.setString(6, admin.getAddress());
+		ptmt.execute();
 	}
 	public void updateAdmin() {
 		
@@ -37,7 +51,6 @@ public class AdminDao {
 			
 			admins.add(admin);
 		}
-		System.out.println(admins.toString());
 		return admins;
 	}
 	public Administrator getAdmin() {

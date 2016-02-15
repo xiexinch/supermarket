@@ -10,7 +10,7 @@
 <body>
 	<center>
     <h1>登陆页</h1>
-    <form action="action/Login" method="post" class="user">
+    <form action="action/LoginServlet" method="post" class="user">
         <div>
             <label>用户名</label>
             <input type="text" name="username" />
