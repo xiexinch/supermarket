@@ -2,6 +2,7 @@ package action;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.supermarkt.Administrator;
+import com.supermarket.Administrator;
 
 import dao.AdminDao;
 
@@ -19,13 +20,9 @@ import dao.AdminDao;
 @WebServlet("/RegistServlet")
 public class RegistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+  
     public RegistServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,6 +32,7 @@ public class RegistServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Administrator admin = new Administrator();
 		AdminDao adDao = new AdminDao();
+		boolean isExist = false;
 		
 		admin.setName(request.getParameter("username"));
 		admin.setMypassword(request.getParameter("password"));
@@ -42,9 +40,21 @@ public class RegistServlet extends HttpServlet {
 		admin.setPhone(request.getParameter("phone"));
 		admin.setAddress(request.getParameter("address"));
 		
-		try {
-			adDao.addAdmin(admin);
-		} catch (SQLException e) {
+		try { 
+			//获取所有管理员
+			List<Administrator> ads = adDao.query();
+			for (Administrator ad : ads) {
+				if (ad.getName().equals(admin.getName())) {
+					isExist = true;
+					request.getRequestDispatcher("../RegistFail.jsp").forward(request, response);
+				}
+			}
+			if (isExist == false) {
+				adDao.addAdmin(admin);
+				response.sendRedirect(request.getContextPath() + "/Login.jsp");
+			}
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
