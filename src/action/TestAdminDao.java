@@ -2,7 +2,7 @@ package action;
 
 import java.util.List;
 
-import com.supermarkt.Administrator;
+import com.supermarket.Administrator;
 
 import dao.AdminDao;
 
