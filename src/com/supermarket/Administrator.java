@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Administrator{
 	
@@ -181,26 +179,23 @@ public class Administrator{
 	}
 	
 	//浏览货物信息
-	@SuppressWarnings("unchecked")
-	public ArrayList LookUpGoodsInformation() {
+	public ArrayList<Goods> LookUpGoodsInformation() {
 		this.getConn();
 		String sql = "select * from goods";
-		@SuppressWarnings("rawtypes")
-		ArrayList<Map> lists = new ArrayList<Map>();
+		ArrayList<Goods> lists = new ArrayList<Goods>();
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
-				@SuppressWarnings("rawtypes")
-				Map map = new HashMap();
-				map.put("id", rs.getInt("id"));
-				map.put("name", rs.getString("name"));
-				map.put("price", rs.getDouble("price"));
-				map.put("stock", rs.getString("stock"));
-				map.put("production_date", rs.getDate("production_date"));
-				map.put("shelf_life", rs.getString("shelf_life"));
-				map.put("factory", rs.getString("factory"));
-				lists.add(map);
+				Goods goods = new Goods();
+				goods.setId(rs.getInt("id"));
+				goods.setName(rs.getString("name"));
+				goods.setPrice(rs.getDouble("price"));
+				goods.setStock(rs.getInt("stock"));
+				goods.setProduction_date(rs.getDate("production_date"));
+				goods.setShelf_life(rs.getString("shelf_life"));
+				goods.setFactory(rs.getString("factory"));
+				lists.add(goods);
 			}
 			return lists;
 		} catch (SQLException e) {
@@ -245,58 +240,50 @@ public class Administrator{
 		}
 	
 	//查询顾客
-		@SuppressWarnings("unchecked")
-		public ArrayList LookForCustomer(Customer customer) {
+		public Customer LookForCustomer(Customer customer) {
 			this.getConn();
 			String sql = "select * from custom where id="+customer.getNetId()+"";
-			@SuppressWarnings("rawtypes")
-			ArrayList<Map> lists = new ArrayList<Map>();
+			Customer cus = new Customer();
 			try {
 				PreparedStatement ps = conn.prepareStatement(sql);
 				ResultSet rs = ps.executeQuery();
 				while(rs.next()){
-					@SuppressWarnings("rawtypes")
-					Map map = new HashMap();
-					map.put("id", rs.getInt("id"));
-					map.put("name", rs.getString("name"));
-					map.put("password", rs.getString("password"));
-					map.put("sex", rs.getString("sex"));
-					map.put("phone", rs.getString("phone"));
-					map.put("address", rs.getString("address"));
-					map.put("details", rs.getString("details"));
-					lists.add(map);
+					cus.setNetId(rs.getInt("id"));
+				    cus.setName(rs.getString("name"));
+					cus.setMypassword(rs.getString("password"));
+					cus.setSex(rs.getString("sex"));
+					cus.setPhone(rs.getString("phone"));
+					cus.setAddress(rs.getString("address"));
+					cus.setDetails(rs.getString("details"));
 				}
-				return lists;
+				return cus;
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}finally {
 			}
-			return lists;
+			return cus;
 		}
 	
 		
 	//浏览所有顾客信息
-		@SuppressWarnings("unchecked")
-		public ArrayList LookForAllCustomer() {
+		public ArrayList<Customer> LookForAllCustomer() {
 			this.getConn();
 			String sql = "select * from custom";
-			@SuppressWarnings("rawtypes")
-			ArrayList<Map> lists = new ArrayList<Map>();
+			ArrayList<Customer> lists = new ArrayList<Customer>();
 			try {
 				PreparedStatement ps = conn.prepareStatement(sql);
 				ResultSet rs = ps.executeQuery();
 				while(rs.next()){
-					@SuppressWarnings("rawtypes")
-					Map map = new HashMap();
-					map.put("id", rs.getInt("id"));
-					map.put("name", rs.getString("name"));
-					map.put("password", rs.getString("password"));
-					map.put("sex", rs.getString("sex"));
-					map.put("phone", rs.getString("phone"));
-					map.put("address", rs.getString("address"));
-					map.put("details", rs.getString("details"));
-					lists.add(map);
+					Customer cus = new Customer();
+					cus.setNetId(rs.getInt("id"));
+				    cus.setName(rs.getString("name"));
+					cus.setMypassword(rs.getString("password"));
+					cus.setSex(rs.getString("sex"));
+					cus.setPhone(rs.getString("phone"));
+					cus.setAddress(rs.getString("address"));
+					cus.setDetails(rs.getString("details"));
+					lists.add(cus);
 				}
 				return lists;
 			} catch (SQLException e) {
