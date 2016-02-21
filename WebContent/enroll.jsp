@@ -7,7 +7,7 @@
 
 <html>
 <head>
-    <link rel="stylesheet" href="enroll.css">
+    <link rel="stylesheet" href="./view/enroll.css">
     <title>注册界面</title>
 </head>
 <!--<script>
