@@ -5,9 +5,9 @@ import com.mysql.*;
 
 @SuppressWarnings("unused")
 public class DBUtil {
-	private static final String URL = "jdbc:mysql://127.0.0.1:3306/supermarkt?useUnicode=true&characterEncoding=utf-8&useSSL=false";
+	private static final String URL = "jdbc:mysql://127.0.0.1:3306/supermarkt";
 	private static final String USERNAME = "root";
-	private static final String PASSWORD = "123";
+	private static final String PASSWORD = "wuhahaha";
 	private static Connection conn = null;
 	static {
 		try {
