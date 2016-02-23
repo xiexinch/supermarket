@@ -38,14 +38,20 @@ public class LoginServlet extends HttpServlet {
 			for(Administrator ad : ads) {
 				if(admin.getName().equals(ad.getName())) {
 					isExist = true;
+<<<<<<< HEAD
+=======
+					//System.out.println("yonghucunzai");
+>>>>>>> origin/master
 					if((Decode.UnlockCode(admin.getMypassword())).equals(ad.getMypassword())){
 						request.getRequestDispatcher("../LoginSuccess.jsp").forward(request, response);
 					}else {
+						System.out.println("mimabudui");
 						request.getRequestDispatcher("../LoginFail.jsp").forward(request, response);
 					}
 				}
 			}
 			if (isExist == false) {
+				System.out.println("yonghubucunzai");
 				request.getRequestDispatcher("../LoginFail.jsp").forward(request, response);
 			}
 		}
