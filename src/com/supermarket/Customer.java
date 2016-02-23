@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import db.DBUtil;
+
 public class Customer{
 	private int NetId;  //用户的ID
     private String name; //用户名
@@ -19,16 +21,16 @@ public class Customer{
     
     //创建数据库连接
     
-    private Connection getConn(){
-    	try{
-    		Class.forName("com.mysql.jdbc.Driver");
-    		conn = DriverManager.getConnection(
-     				"jdbc:mysql://127.0.0.1:3306/supermarkt", "root", "wuhahaha");
-    	}catch(Exception e){
-    		e.printStackTrace();
-    	}
-    	return conn;
-    }
+//    private Connection getConn(){
+//    	try{
+//    		Class.forName("com.mysql.jdbc.Driver");
+//    		conn = DriverManager.getConnection(
+//     				"jdbc:mysql://127.0.0.1:3306/supermarkt", "root", "wuhahaha");
+//    	}catch(Exception e){
+//    		e.printStackTrace();
+//    	}
+//    	return conn;
+//    }
 
 	public int getNetId() {
 		return NetId;
@@ -90,7 +92,7 @@ public class Customer{
 	
 	//顾客浏览自己的信息
 	public Customer LookForCustomer() {
-		this.getConn();
+		DBUtil.getConnection();
 		String sql = "select * from custom where id="+this.getNetId()+"";
 		Customer cus = new Customer();
 		try {
@@ -116,7 +118,7 @@ public class Customer{
 	
 	//顾客浏览商品信息
 	public ArrayList<Goods> LookUpGoodsInformation() {
-		this.getConn();
+		DBUtil.getConnection();
 		String sql = "select * from goods";
 		ArrayList<Goods> lists = new ArrayList<Goods>();
 		try {

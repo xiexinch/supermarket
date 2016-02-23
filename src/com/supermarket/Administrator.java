@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import db.*;
+
 public class Administrator{
 	
 	private int NetId;  //用户的ID
@@ -19,16 +21,16 @@ public class Administrator{
     
     //链接到数据库
     
-    private Connection getConn(){
-    	try{
-    		Class.forName("com.mysql.jdbc.Driver");
-    		conn = DriverManager.getConnection(
-     				"jdbc:mysql://127.0.0.1:3306/supermarkt", "root", "wuhahaha");
-    	}catch(Exception e){
-    		e.printStackTrace();
-    	}
-    	return conn;
-    }
+//    private Connection getConn(){
+//    	try{
+//    		Class.forName("com.mysql.jdbc.Driver");
+//    		conn = DriverManager.getConnection(
+//     				"jdbc:mysql://127.0.0.1:3306/supermarkt", "root", "wuhahaha");
+//    	}catch(Exception e){
+//    		e.printStackTrace();
+//    	}
+//    	return conn;
+//    }
     
 	public int getNetId() {
 		return NetId;
@@ -71,11 +73,11 @@ public class Administrator{
 	
 	public void addAdministrator() {
 		try {
-			this.getConn();
+			DBUtil.getConnection();
 			
 			Statement sta = conn.createStatement();
 			sta.execute("insert into administrators(id,user,password,sex,phone,adress) values(null,'"
-			+this.name+"','"+this.mypassword+"','"+this.sex+"','"+this.phone+"','"+this.address+"')");
+			+this.name+"','"+Decode.UnlockCode(this.mypassword)+"','"+this.sex+"','"+this.phone+"','"+this.address+"')");
 			sta.close();
 			conn.close();
 		} catch (SQLException e) {
@@ -87,7 +89,7 @@ public class Administrator{
 	//增加商品
 	public void addGoodsInformation(Goods goods) {
 		try {
-			this.getConn();
+			DBUtil.getConnection();
 			Statement sta = conn.createStatement();
 		    String sql= "insert into goods(id,name,price,stock,production_date,shelf_life,factory) values(null,'"
 		    		+goods.getName()+"','"+goods.getPrice()+"','"+goods.getStock()+","
@@ -104,7 +106,7 @@ public class Administrator{
 	//修改商品价格
 	public void updateGoodsPrice(String goodsName,double goodsPrice) {
 		try {
-			this.getConn();
+			DBUtil.getConnection();
 			Statement sta = conn.createStatement();
 			String sql = "update goods set price="+goodsPrice+" where name='"+goodsName+"'";
 			sta.executeUpdate(sql);
@@ -119,7 +121,7 @@ public class Administrator{
 	//修改商品库存
 		public void updateGoodsStock(String goodsName,double goodsStock) {
 			try {
-				this.getConn();
+				DBUtil.getConnection();
 				Statement sta = conn.createStatement();
 				String sql = "update goods set price="+goodsStock+" where name='"+goodsName+"'";
 				int count = sta.executeUpdate(sql);
@@ -134,7 +136,7 @@ public class Administrator{
 	//删除管理员
 	public void deleteAdministrators() {
 		try {
-			this.getConn();
+			DBUtil.getConnection();
 			Statement sta = conn.createStatement();
 			String sql = "delete from administrators where name='"+this.name+"'";
 			int count = sta.executeUpdate(sql);
@@ -149,10 +151,10 @@ public class Administrator{
 	//修改管理员信息
 	public void updateAdministratorsInformation(Administrator ad) {
 		try {
-			this.getConn();
+			DBUtil.getConnection();
 			Statement sta = conn.createStatement();
 			String sql="update administrators set user='"+ad.name+"',password='"
-			            +ad.mypassword+"',sex='"+ad.sex+"',phone='"+ad.phone
+			            +Decode.UnlockCode(ad.mypassword)+"',sex='"+ad.sex+"',phone='"+ad.phone
 			            +"',adress='"+ad.address+"'";
 			int count = sta.executeUpdate(sql);
 			sta.close();
@@ -166,7 +168,7 @@ public class Administrator{
 	//删除商品信息
 	public void deleteGoodsInformation(Goods goods) {
 		try {
-			this.getConn();
+			DBUtil.getConnection();
 			Statement sta = conn.createStatement();
 			String sql = "delete from goods where id='"+goods.getId()+"'";
 			int count = sta.executeUpdate(sql);
@@ -180,7 +182,7 @@ public class Administrator{
 	
 	//浏览货物信息
 	public ArrayList<Goods> LookUpGoodsInformation() {
-		this.getConn();
+		DBUtil.getConnection();
 		String sql = "select * from goods";
 		ArrayList<Goods> lists = new ArrayList<Goods>();
 		try {
@@ -210,10 +212,10 @@ public class Administrator{
 	
 		public void addCustoms(Customer customer){
 			try {
-				this.getConn();
+				DBUtil.getConnection();
 				Statement sta = conn.createStatement();
 			    String sql= "insert into goods(id,name,password,sex,phone,address,details) values(null,'"
-			    		+customer.getName()+"','"+customer.getMypassword()+"','"+customer.getSex()+","
+			    		+customer.getName()+"','"+Decode.UnlockCode(customer.getMypassword())+"','"+customer.getSex()+","
 			    		+customer.getPhone()+"','"+customer.getAddress()+"','"+customer.getDetails()+"')";
 				boolean temp = sta.execute(sql);
 				sta.close();
@@ -227,7 +229,7 @@ public class Administrator{
 	//删除顾客资料
 		public void deleteCustomer(Customer customer) {
 			try {
-				this.getConn();
+				DBUtil.getConnection();
 				Statement sta = conn.createStatement();
 				String sql = "delete from custom where id="+customer.getNetId()+"";
 				int count = sta.executeUpdate(sql);
@@ -241,7 +243,7 @@ public class Administrator{
 	
 	//查询顾客
 		public Customer LookForCustomer(Customer customer) {
-			this.getConn();
+			DBUtil.getConnection();
 			String sql = "select * from custom where id="+customer.getNetId()+"";
 			Customer cus = new Customer();
 			try {
@@ -268,7 +270,7 @@ public class Administrator{
 		
 	//浏览所有顾客信息
 		public ArrayList<Customer> LookForAllCustomer() {
-			this.getConn();
+			DBUtil.getConnection();
 			String sql = "select * from custom";
 			ArrayList<Customer> lists = new ArrayList<Customer>();
 			try {
