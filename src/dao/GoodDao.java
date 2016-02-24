@@ -12,12 +12,12 @@ import db.DBUtil;
 
 public class GoodDao {
 	//查询所有商品
-	public List<Goods> query() throws Exception {
+	public List<Goods> query(String order) throws Exception {
 		Connection conn = DBUtil.getConnection(); //连接数据库
 		//执行SQL语句
 		Statement stmt =  conn.createStatement();
 		//返回查询结果
-		ResultSet rs = stmt.executeQuery("select id,name,price,stock,production_date,shelf_date,factory from goods");
+		ResultSet rs = stmt.executeQuery("select * from goods order by "+order+" desc");
 		//存储所有GOOD对象
 		List<Goods> goods = new ArrayList<Goods>();
 		Goods good = null;
@@ -31,6 +31,7 @@ public class GoodDao {
 			good.setShelf_life(rs.getString("shelf_life"));
 			good.setFactory(rs.getString("factory"));
 			goods.add(good);
+		   // System.out.println(good.getName());
 		}
 		return goods;
 	}

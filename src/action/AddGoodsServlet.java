@@ -13,6 +13,9 @@ import com.supermarket.*;
 
 import dao.AdminDao;
 
+/**
+ * Servlet implementation class AddGoodsServlet
+ */
 @WebServlet("/AddGoodsServlet")
 public class AddGoodsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
