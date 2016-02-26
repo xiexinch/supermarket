@@ -26,18 +26,14 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Administrator admin = new Administrator();
 		AdminDao adDao = new AdminDao();
-		String username,password;
 		boolean isExist = false;
 		HttpSession session = request.getSession();
 		response.setCharacterEncoding("utf-8");
 		request.setCharacterEncoding("utf-8");
 		try{
 			List<Administrator> ads = adDao.query();
-			username = request.getParameter("username");
-			password = request.getParameter("password");
-			
-			admin.setName(username);
-			admin.setMypassword(password);
+			admin.setName(request.getParameter("username"));
+			admin.setMypassword(request.getParameter("password"));
 			for(Administrator ad : ads) {
 				if(admin.getName().equals(ad.getName())) {
 					isExist = true;

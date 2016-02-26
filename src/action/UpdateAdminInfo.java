@@ -33,13 +33,23 @@ public class UpdateAdminInfo extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<<<<<<< HEAD
 		/*request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
+=======
+>>>>>>> refs/remotes/TinkerAc/master
 		Administrator admin = (Administrator)request.getSession().getAttribute("user");
 		admin.setPhone(request.getParameter("phone"));
 		admin.setAddress(request.getParameter("address"));
 		admin.updateAdministratorsInformation(admin);
+<<<<<<< HEAD
 		request.setAttribute("info", "ä¿®æ”¹ä¿¡æ¯æˆåŠŸ");*/
 	}
 
 }
+=======
+		request.setAttribute("info", "ÐÞ¸ÄÍê³É");
+	}
+
+}
+>>>>>>> refs/remotes/TinkerAc/master

@@ -27,9 +27,13 @@ public class UpdateGoodsStock extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Administrator admin = (Administrator)request.getSession().getAttribute("user");
+<<<<<<< HEAD
 		System.out.println("updatestock");
 		admin.updateGoodsStock(request.getParameter("goodsName"), Double.parseDouble(request.getParameter("newInfo")));
 		response.sendRedirect("AdminManagementPage.jsp");
+=======
+		admin.updateGoodsStock(request.getParameter("goodsName"), Double.parseDouble(request.getParameter("goodsStock")));
+>>>>>>> refs/remotes/TinkerAc/master
 	}
 
 	/**
@@ -39,4 +43,9 @@ public class UpdateGoodsStock extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+<<<<<<< HEAD
 }
+=======
+
+}
+>>>>>>> refs/remotes/TinkerAc/master
