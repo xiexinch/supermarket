@@ -73,8 +73,12 @@ public class Administrator{
 	
 	public void addAdministrator() {
 		try {
+<<<<<<< HEAD
+			conn = this.getConn();
+=======
 			DBUtil.getConnection();
 			
+>>>>>>> refs/remotes/TinkerAc/master
 			Statement sta = conn.createStatement();
 			sta.execute("insert into administrators(id,user,password,sex,phone,adress) values(null,'"
 			+this.name+"','"+Decode.UnlockCode(this.mypassword)+"','"+this.sex+"','"+this.phone+"','"+this.address+"')");
@@ -108,7 +112,9 @@ public class Administrator{
 		try {
 			DBUtil.getConnection();
 			Statement sta = conn.createStatement();
-			String sql = "update goods set price="+goodsPrice+" where name='"+goodsName+"'";
+			System.out.println(goodsPrice);
+			System.out.println(goodsName);
+			String sql = "update goods set price="+goodsPrice+" where name='"+goodsName+"';";
 			sta.executeUpdate(sql);
 			sta.close();
 			conn.close();
@@ -123,7 +129,7 @@ public class Administrator{
 			try {
 				DBUtil.getConnection();
 				Statement sta = conn.createStatement();
-				String sql = "update goods set price="+goodsStock+" where name='"+goodsName+"'";
+				String sql = "update goods set stock="+goodsStock+" where name='"+goodsName+"'";
 				int count = sta.executeUpdate(sql);
 				sta.close();
 				conn.close();
@@ -139,7 +145,7 @@ public class Administrator{
 			DBUtil.getConnection();
 			Statement sta = conn.createStatement();
 			String sql = "delete from administrators where name='"+this.name+"'";
-			int count = sta.executeUpdate(sql);
+			sta.executeUpdate(sql);
 			sta.close();
 			conn.close();
 		} catch (SQLException e) {

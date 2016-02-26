@@ -1,12 +1,16 @@
 package action;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.supermarket.*;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
+
+import com.supermarket.Administrator;
 /**
  * Servlet implementation class UpdateGoodsPrice
  */
@@ -27,9 +31,12 @@ public class UpdateGoodsPrice extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Administrator admin = (Administrator)request.getSession().getAttribute("user");
-		admin.updateGoodsPrice(request.getParameter("goodsName"), Double.parseDouble(request.getParameter("goodsPrice")));
+		//System.out.println(((String)request.getParameter("goodsName")+"  "+Double.parseDouble(request.getParameter("newPrice"))));
+		System.out.println("updateprice");
+		//System.out.println(request.getParameter("goodsName")+"wocao");
+		admin.updateGoodsPrice((String)request.getParameter("goodsName"), Double.parseDouble(request.getParameter("newInfo")));
+	    response.sendRedirect("AdminManagementPage.jsp?myOrder="+ (String) request.getSession().getAttribute("order")  +"");
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
